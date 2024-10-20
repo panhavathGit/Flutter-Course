@@ -1,27 +1,56 @@
 class MyDuration {
-  
+  final double _milliseconds; 
 
-//   // Display the duration in a readable format
-//   @override
-//   String toString() {
-//     int seconds = (_milliseconds / 1000).round();
-//     int minutes = (seconds / 60).floor();
-//     seconds = seconds % 60;
-//     int hours = (minutes / 60).floor();
-//     minutes = minutes % 60;
-//     return '$hours hours, $minutes minutes, $seconds seconds';
-//   }
-// }
+  MyDuration(this._milliseconds);
 
-// void main() {
-//   MyDuration duration1 = MyDuration.fromHours(3); // 3 hours
-//   MyDuration duration2 = MyDuration.fromMinutes(45); // 45 minutes
-//   print(duration1 + duration2); // 3 hours, 45 minutes, 0 seconds
-//   print(duration1>duration2); //true
+  // Named constructors
+  MyDuration.fromHours(double hour) : _milliseconds = hour * 60 * 60 * 1000;
+  MyDuration.fromMinutes(double minute) : _milliseconds = minute * 60 * 1000;
+  MyDuration.fromSeconds(double second) : _milliseconds = second * 1000;
 
-//   try {
-//     print(duration2 - duration1); // This will throw an exception
-//   } catch (e) {
-//     print(e); 
-//   }
+  // Operator Overloading for Addition
+  MyDuration operator +(MyDuration other) {
+    return MyDuration(this._milliseconds + other._milliseconds);
+  }
+
+  // Operator Overloading for Subtraction
+  MyDuration operator -(MyDuration other) {
+    if (this._milliseconds < other._milliseconds) {
+      throw Exception('Cannot subtract a bigger duration.');
+    }
+    return MyDuration(this._milliseconds - other._milliseconds);
+  }
+
+  // Operator Overloading for Comparison
+  bool operator >(MyDuration other) {
+    return this._milliseconds > other._milliseconds;
+  }
+
+  @override
+  String toString() {
+    int seconds = (_milliseconds / 1000).round();
+    int minutes = (seconds / 60).floor();
+    seconds = seconds % 60;
+    int hours = (minutes / 60).floor();
+    minutes = minutes % 60;
+    return '$hours hours, $minutes minutes, $seconds seconds';
+  }
+ 
+}
+
+void main() {
+  MyDuration duration1 = MyDuration.fromHours(3.5); 
+  MyDuration duration2 = MyDuration.fromMinutes(30); 
+
+  print(duration1); 
+  print(duration2);
+
+  print(duration1 + duration2); 
+  print(duration2 > duration1); 
+
+  try {
+    print(duration2 - duration1);
+  } catch (e) {
+    print(e);
+  }
 }
