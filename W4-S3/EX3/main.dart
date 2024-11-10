@@ -59,6 +59,7 @@ class _ImageGalleryState extends State<ImageGallery> {
   }
 }
 void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false, // Why this line ? Can you explain it ?
+      debugShowCheckedModeBanner: false, // This line we make it false because we don't want to have a debug logo in the app bar. By doing so it make
+      //our app look cleaner
       home: ImageGallery()
 ));
