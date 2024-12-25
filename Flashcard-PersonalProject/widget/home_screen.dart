@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     // Fetch all categories from CategoryManager
-    List<String> categories = CategoryManager().getAllCategories();
+    List<String> categories = categoryManager.getAllCategories();
 
     return Scaffold(
       appBar: AppBar(
